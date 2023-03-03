@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class TokenManager @Inject constructor(@ApplicationContext context: Context) {
 
-    private var prefs=context.getSharedPreferences( SharePreferene,Context.MODE_PRIVATE)
+     var prefs=context.getSharedPreferences( SharePreferene,Context.MODE_PRIVATE)
 
     fun saveToken(token:String){
         val editor=prefs.edit()

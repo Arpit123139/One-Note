@@ -13,7 +13,7 @@ import retrofit2.http.Path
 
 interface NotesApi {
 
-    @GET("note/getnote")
+    @GET("note/getNote")
     suspend fun getNote(): Response<NoteResponse>
 
     @POST("note/addNote")

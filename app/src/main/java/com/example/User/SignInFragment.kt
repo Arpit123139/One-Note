@@ -24,7 +24,7 @@ class SignInFragment : Fragment() {
     private val signupViewModel by viewModels<SignupViewModel>()
 
     @Inject
-    private lateinit var tokenManager:TokenManager
+     lateinit var tokenManager:TokenManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
