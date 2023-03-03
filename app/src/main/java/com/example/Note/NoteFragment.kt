@@ -52,11 +52,21 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        adapter= NotesAdapter()
+
+        binding.addNote.setOnClickListener{
+            val action=NoteFragmentDirections.actionNoteFragmentToNoteEditFragment(null,null,null)
+            findNavController().navigate(action)
+        }
+        adapter= NotesAdapter(){
+            val action=NoteFragmentDirections.actionNoteFragmentToNoteEditFragment(it.title,it.description,it._id)
+            findNavController().navigate(action)
+        }
          NoteViewModel.getNote()
         NoteViewModel.notelive.observe(viewLifecycleOwner, Observer {
+            binding.progressBar.isVisible=false
 
             when(it){
+
                 is NetworkResult.Success->{
                     Log.d("NoteFragment", it.data.toString())
                     SetDataInAdapter(it.data!!.note,view)
@@ -65,7 +75,7 @@ class NoteFragment : Fragment() {
 //                    binding.txtError.text=it.message
                 }
                 is NetworkResult.Loading -> {
-//                    binding.progressBar.isVisible=true
+                    binding.progressBar.isVisible=true
                 }
             }
         })

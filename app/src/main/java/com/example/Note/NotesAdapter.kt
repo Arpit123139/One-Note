@@ -10,11 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Note
 import com.example.onenote.R
 
-class NotesAdapter:ListAdapter<Note,NotesAdapter.noteViewHolder>(DiffCallback()) {
+class NotesAdapter(private val listener:(Note)->Unit):ListAdapter<Note,NotesAdapter.noteViewHolder>(DiffCallback()) {
 
     inner class  noteViewHolder(view: View):RecyclerView.ViewHolder(view){
         val title1=view.findViewById<TextView>(R.id.title1)
         val desc=view.findViewById<TextView>(R.id.desc)
+
+        init {
+            itemView.setOnClickListener {
+                listener.invoke(getItem(adapterPosition))
+            }
+        }
 
         fun bind(noteData:Note){
             with(noteData){
