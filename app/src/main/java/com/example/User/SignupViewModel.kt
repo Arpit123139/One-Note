@@ -1,6 +1,7 @@
 package com.example.User
 
 import android.util.Log
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,8 +40,7 @@ class SignupViewModel @Inject constructor(private val userRepository: UserReposi
         }
     }
 
-    private fun handleResponse(userResponse: Response<UserResponse>)
-    {
+    private fun handleResponse(userResponse: Response<UserResponse>) {
         if (userResponse.isSuccessful && userResponse.body() != null) {
             _userResponse.value = NetworkResult.Success(userResponse.body()!!)
         } else if (userResponse.errorBody() != null) {        //ERROR BODY HAS A JSON
@@ -61,5 +61,14 @@ class SignupViewModel @Inject constructor(private val userRepository: UserReposi
 
             handleResponse(userResponse)
         }
+    }
+
+    fun validateCredential(name:String,email:String,password:String):Pair<Boolean,String>{
+        var result=Pair(true,"")
+
+        if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            result=Pair(false,"Please Provide a valid Email Address")
+        }
+        return result
     }
 }

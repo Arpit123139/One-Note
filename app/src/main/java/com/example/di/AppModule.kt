@@ -1,5 +1,6 @@
 package com.example.di
 
+import com.example.api.NotesApi
 import com.example.api.userApi
 import com.example.utils.Constants.Companion.base_url
 import dagger.Module
@@ -26,4 +27,9 @@ class AppModule {
     @Singleton
     fun providesUserApi(retrofit: Retrofit): userApi =
         retrofit.create(userApi::class.java)
+
+    @Provides
+    @Singleton
+    fun providesNoteApi(retrofit: Retrofit): NotesApi =
+        retrofit.create(NotesApi::class.java)
 }
